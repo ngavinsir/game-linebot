@@ -22,7 +22,7 @@ const server = app.listen(5000, () => {
   console.log('Listening on port ' + server.address().port);
 });
 
-app.post('https://ngavinsir-bot.herokuapp.com/webhook', (req,res) => {
+app.post('/', (req,res) => {
   res.status(200).send(req.body);
   console.log(req.body.events[0]);
   if(req.body.events[0].type === 'message')
