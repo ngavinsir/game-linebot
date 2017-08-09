@@ -18,7 +18,7 @@ const client = new Client({
 app.use(middleware(config));
 app.use(bodyParser.json());
 
-const server = app.listen(5000, () => {
+const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Listening on port ' + server.address().port);
 });
 
