@@ -24,14 +24,25 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 app.post('/', (req,res) => {
   res.status(200).send(req.body);
-  console.log(req.body.events[0]);
-  if(req.body.events[0].type === 'message')
+  const ei = req.body.events[0];
+  console.log(ei);
+  if(ei.type === 'message')
   {
-    if(req.body.events[0].message.type === 'text')
+    if(ei.message.type === 'text')
     {
-      const msg = req.body.events[0].message;
+      const msg = ei.message;
+      if(msg.text === 'bye ngentott')
+      {
+        client.replyMessage(ei.replyToken, { type: 'text', text: 'jangan kangen aku yaahh!!'});
+        if(ei.source.type === 'room')
+        {
+          client.leaveRoom(ei.source.roomId);
+        }
+        return;
+      }
       console.log(msg.text);
-      client.replyMessage(req.body.events[0].replyToken, { type: 'text', text: 'gak usah sok-sok ' + msg.text + ' ngentot!'});
+      client.replyMessage(req.body.events[0].replyToken,
+        { type: 'text', text: 'gak usah sok-sok ' + msg.text + ' ngentot!'});
       return;
     }
   }
