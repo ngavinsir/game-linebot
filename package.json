@@ -1,0 +1,16 @@
+{
+  "name": "linebot",
+  "version": "1.0.0",
+  "description": "chat bot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ngavinsir",
+  "license": "ISC",
+  "dependencies": {
+    "@line/bot-sdk": "^2.0.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
+  }
+}
