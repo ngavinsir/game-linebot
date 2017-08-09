@@ -22,7 +22,7 @@ const server = app.listen(5000, () => {
   console.log('Listening on port ' + server.address().port);
 });
 
-app.post('/', (req,res) => {
+app.post('/webhook', (req,res) => {
   res.status(200).send(req.body);
   console.log(req.body.events[0]);
   if(req.body.events[0].type === 'message')
