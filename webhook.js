@@ -68,6 +68,14 @@ app.post('/', (req,res) => { //what to do in case a http post
         client.replyMessage(ei.replyToken, { type: 'text', text: (msg.text.substring(2, msg.text.length))});
         return;
       }
+      if(msg.text === "?g")
+      {
+        if(ggames[ei.source.userId] != null)
+        {
+          client.replyMessage(ei.replyToken, { type: 'text', text: ggames[ei.source.userId])});
+        }
+        return;
+      }
       console.log(msg.text);
       client.replyMessage(req.body.events[0].replyToken,
         { type: 'text', text: 'gak usah sok-sok ' + msg.text + ' ngentot!'});
