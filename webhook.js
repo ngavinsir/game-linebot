@@ -72,8 +72,7 @@ app.post('/', (req,res) => { //what to do in case a http post
       {
         if(ggames[ei.source.userId] != null)
         {
-          
-          client.replyMessage(ei.replyToken, { type: 'text', text: ggames[ei.source.userId])});
+          client.replyMessage(ei.replyToken, { type: 'text', text: ggames[ei.source.userId]});
         }
         return;
       }
