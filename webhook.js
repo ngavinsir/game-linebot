@@ -59,13 +59,12 @@ app.post('/', (req,res) => { //what to do in case a http post
         if(ei.source.type === 'room')
         {
           client.leaveRoom(ei.source.roomId);
-          return;
         }
         if(ei.source.type === 'group')
         {
           client.leaveGroup(ei.source.groupId);
-          return;
         }
+        return;
       }
       if(msg.text.startsWith("g "))
       {
