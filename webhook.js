@@ -58,11 +58,17 @@ app.post('/', (req,res) => { //what to do in case a http post
         client.replyMessage(ei.replyToken, { type: 'text', text: 'jangan kangen aku yaahh!!'});
         if(ei.source.type === 'room')
         {
-          client.leaveRoom(ei.source.roomId);
+          client.leaveRoom(ei.source.roomId).then(function()
+          {
+            return;
+          });
         }
         if(ei.source.type === 'group')
         {
-          client.leaveGroup(ei.source.groupId);
+          client.leaveGroup(ei.source.groupId).then(function()
+          {
+            return;
+          });
         }
         return;
       }
