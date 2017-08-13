@@ -77,28 +77,30 @@ function handleMsg(ei)
   if(msg === '!mulai')
   {
     console.log('a');
-    if(getRoom(ei) == null) console.log('b'); return;
+    if(getRoom(ei) == null)
+    {
+      console.log('b');
+      return;
+    }
     if((getRoom(ei) != null) && ggames[getRoom(ei)] != null)
     {
       console.log('c');
       client.replyMessage(ei.replyToken, { type: 'text', text: 'Permainan sedang berjalan.'});
       return;
-    } else
-    {
-      console.log('d');
-      client.pushMessage(ei.source.userId, {type: 'text', text: 'Selamat bermain!'})
-      .catch((err) =>
-      {
-        console.log('e');
-        client.replyMessage(ei.replyToken,
-          { type: 'text', text: getProfile(ei).displayName + ' belum menambahkan saya menjadi teman.'});
-        return;
-      });
-      var g = new ggame(getRoom(ei));
-      g.addPlayer(ei.source.userId);
-      client.replyMessage(ei.replyToken, {type: 'text', text: '1 menit hingga permainan dimulai.'})
-      return;
     }
+    console.log('d');
+    client.pushMessage(ei.source.userId, {type: 'text', text: 'Selamat bermain!'})
+    .catch((err) =>
+    {
+      console.log('e');
+      client.replyMessage(ei.replyToken,
+        { type: 'text', text: getProfile(ei).displayName + ' belum menambahkan saya menjadi teman.'});
+      return;
+    });
+    var g = new ggame(getRoom(ei));
+    g.addPlayer(ei.source.userId);
+    client.replyMessage(ei.replyToken, {type: 'text', text: '1 menit hingga permainan dimulai.'})
+    return;
   }
 }
 
