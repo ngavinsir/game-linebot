@@ -107,7 +107,7 @@ function handleMsg(ei)
       }
       var g = new ggame(getRoom(ei));
       g.addPlayer(ei.source.userId);
-      reply(ei.replyToken, '1 menit hingga permainan dimulai\n\n Ketik !gabung untuk ikut bermain\n' + g.pcount
+      reply(ei.replyToken, '1 menit hingga permainan dimulai\n\nKetik !gabung untuk ikut bermain\n' + g.pcount
         + ' pemain sudah bergabung');
       return;
     }, 2000);
@@ -146,7 +146,7 @@ function handleMsg(ei)
         }
         getGame(ei).addPlayer(ei.source.userId);
         reply(ei.replyToken, getPpl(ei.source.userId).name
-          + ' telah bergabung dengan permainan\n\n Ketik !gabung untuk ikut bermain\n' + g.pcount
+          + ' telah bergabung dengan permainan\n\nKetik !gabung untuk ikut bermain\n' + g.pcount
           + ' pemain sudah bergabung');
         return;
       }, 2000);
