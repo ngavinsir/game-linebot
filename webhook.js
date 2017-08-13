@@ -213,7 +213,7 @@ function getGame(ei)
   return ggames[getRoom(ei)];
 }
 
-function getPpl(uid)
+function getPpl(ei)
 {
   return getGame(ei).players[ei.source.userId];
 }
