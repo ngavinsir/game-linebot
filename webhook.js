@@ -94,6 +94,11 @@ function handleMsg(ei)
     {
       return;
     }
+    if(isPlay(ei))
+    {
+      reply(ei.replyToken, 'Anda sedang bermain di tempat lain.');
+      return;
+    }
     if(isGame(ei))
     {
       reply(ei.replyToken, 'Permainan sedang berjalan.');
@@ -130,6 +135,11 @@ function handleMsg(ei)
 
   if(msg === '!gabung')
   {
+    if(isPlay(ei))
+    {
+      reply(ei.replyToken, 'Anda sedang bermain di tempat lain.');
+      return;
+    }
     if(isGame(ei))
     {
       if(getGame(ei).players[ei.source.userId] != null)
@@ -164,6 +174,7 @@ function handleMsg(ei)
       return;
     }
     reply(ei.replyToken, 'Ketik !mulai terlebih dahulu untuk membuat permainan.');
+    return;
   }
 
   /*
@@ -195,6 +206,22 @@ function handleMsg(ei)
   /*
 -------------------------------------------------------------------------------------------------------------
   */
+}
+
+function isPlay(ei)
+{
+  if(gindex > 0)
+  {
+    for(i = 0; i < gindex; i++)
+    {
+      gg = ggames[i];
+      if(gg.players[e.source.userId] != null)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 function isGame(ei)
