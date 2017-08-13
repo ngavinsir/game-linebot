@@ -59,6 +59,7 @@ app.post('/', (req,res) => { //what to do in case a http post
   {
     if(ei.message.type === 'text')
     {
+      console.log(getProfile(ei).displayName + ' ' + getProfile(ei));
       handleMsg(ei);
       return;
     }
@@ -89,21 +90,23 @@ function handleMsg(ei)
       return;
     }
     console.log('d');
-    client.pushMessage(ei.source.userId, {type: 'text', text: 'Selamat bermain!'})
-    .catch((err) =>
-    {
-      console.log('e');
-      client.replyMessage(ei.replyToken,
-        { type: 'text', text: getProfile(ei).displayName + ' belum menambahkan saya menjadi teman.'});
-      return;
-    });
-    setTimeout(function()
+    var ff = setTimeout(function()
     {
       var g = new ggame(getRoom(ei));
       g.addPlayer(ei.source.userId);
       client.replyMessage(ei.replyToken, {type: 'text', text: '1 menit hingga permainan dimulai.'})
       return;
     }, 1000);
+    console.log('f');
+    client.pushMessage(ei.source.userId, {type: 'text', text: 'Selamat bermain!'})
+    .catch((err) =>
+    {
+      clearTimeout(ff);
+      console.log('e');
+      client.replyMessage(ei.replyToken,
+        { type: 'text', text: getProfile(ei).displayName + ' belum menambahkan saya menjadi teman.'});
+      return;
+    });
   }
 }
 
