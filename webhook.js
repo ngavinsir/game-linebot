@@ -13,7 +13,7 @@ var ggame = function(id) //generate new game
   this.players = {};
   this.pcount = 0;
   ggames[gindex] = this;
-  ggames[rid] = this;
+  ggames[this.rid] = this;
   gindex++;
 };
 
