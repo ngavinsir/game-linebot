@@ -146,7 +146,7 @@ function handleMsg(ei)
         }
         getGame(ei).addPlayer(ei.source.userId);
         reply(ei.replyToken, getPpl(ei).name
-          + ' telah bergabung dengan permainan\n\nKetik !gabung untuk ikut bermain\n' + g.pcount
+          + ' telah bergabung dengan permainan\n\nKetik !gabung untuk ikut bermain\n' + getGame(ei).pcount
           + ' pemain sudah bergabung');
         return;
       }, 2000);
