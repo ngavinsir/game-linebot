@@ -73,7 +73,7 @@ app.post('/', (req,res) => { //what to do in case a http post
 function handleMsg(ei)
 {
   console.log('handling msg');
-  const msg = ei.message;
+  const msg = ei.message.text;
   if(msg === '!mulai')
   {
     console.log('a');
