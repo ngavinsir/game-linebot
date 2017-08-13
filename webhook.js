@@ -22,7 +22,7 @@ var ppl = function(uid)
   this.uid = uid;
   client.getProfile(uid).then((profile) =>
   {
-    this.name = profile;
+    this.name = profile.displayName;
     console.log(this.name);
   });
 }
