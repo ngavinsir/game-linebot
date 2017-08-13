@@ -135,6 +135,12 @@ function handleMsg(ei)
 
   if(msg === '!gabung')
   {
+    if(isGame(ei) && getGame(ei).players[ei.source.userId] != null)
+    {
+      reply(ei.replyToken, getPpl(ei).name
+        + " sudah bergabung dengan permainan!\nTunggu hingga permainan dimulai");
+      return;
+    }
     if(isPlay(ei))
     {
       reply(ei.replyToken, 'Anda sedang bermain di tempat lain.');
@@ -142,12 +148,6 @@ function handleMsg(ei)
     }
     if(isGame(ei))
     {
-      if(getGame(ei).players[ei.source.userId] != null)
-      {
-        reply(ei.replyToken, getPpl(ei).name
-          + " sudah bergabung dengan permainan!\nTunggu hingga permainan dimulai");
-        return;
-      }
       var ff = setTimeout(function()
       {
         if(getGame(ei) == null)
