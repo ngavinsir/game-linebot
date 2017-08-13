@@ -215,7 +215,7 @@ function isPlay(ei)
     for(i = 0; i < gindex; i++)
     {
       gg = ggames[i];
-      if(gg.players[e.source.userId] != null)
+      if(gg.players[ei.source.userId] != null)
       {
         return true;
       }
