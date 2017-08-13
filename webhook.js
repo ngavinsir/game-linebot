@@ -6,24 +6,31 @@ const bodyParser = require('body-parser'); //for json
 var gindex = 0; //games number
 var ggames = {}; //games storage
 
-var ggame = function(name) //generate new game
+var ggame = function(id) //generate new game
 {
-  this.name = name;
+  this.rid = id;
   this.nid = gindex;
+  this.players = {};
+  this.pcount = 0;
   ggames[gindex] = this;
+  ggames[rid] = this;
   gindex++;
 };
 
 
 ggame.prototype = //game functions
 {
-  getName : function() //return the name of the game
-            {
-              return (this.nid + " - " + this.name);
-            }
+  getId : function() //return the name of the game
+          {
+              return this.rid;
+          },
+  addPlayer : function(uid)
+          {
+            this.players[this.pcount] = uid;
+            this.pcount++;
+            return;
+          }
 };
-
-console.log(new ggame("hey").getName() + "\n" + new ggame("sup").getName() + "\n" + ggames[0].getName());
 
 const app = express();
 
@@ -45,51 +52,57 @@ const server = app.listen(process.env.PORT || 5000, () => { //opening the server
 });
 
 app.post('/', (req,res) => { //what to do in case a http post
-  res.status(200).send(req.body);
+  res.status(200).send('$');
   const ei = req.body.events[0];
   console.log(ei);
   if(ei.type === 'message')
   {
     if(ei.message.type === 'text')
     {
-      const msg = ei.message;
-      if(msg.text === 'bye ngentott') //to make the bot leaves
+      client.pushMessage(ei.source.userId + 'a', {type: 'text', text: 'test'})
+      .catch((err) =>
       {
-        client.replyMessage(ei.replyToken, { type: 'text', text: 'jangan kangen aku yaahh!!'});
-        if(ei.source.type === 'room')
-        {
-          client.replyMessage(ei.replyToken, { type: 'text', text: 'jangan kangen aku yaahh!!'}).then(function()
-          {
-            client.leaveRoom(ei.source.roomId)
-          });
-        }
-        if(ei.source.type === 'group')
-        {
-          client.replyMessage(ei.replyToken, { type: 'text', text: 'jangan kangen aku yaahh!!'}).then(function()
-          {
-            client.leaveGroup(ei.source.groupId);
-          });
-        }
-        return;
-      }
-      if(msg.text.startsWith("g "))
-      {
-        ggames[ei.source.userId] = msg.text.substring(2, msg.text.length);
-        client.replyMessage(ei.replyToken, { type: 'text', text: (msg.text.substring(2, msg.text.length))});
-        return;
-      }
-      if(msg.text === "?g")
-      {
-        if(ggames[ei.source.userId] != null)
-        {
-          client.replyMessage(ei.replyToken, { type: 'text', text: ggames[ei.source.userId]});
-        }
-        return;
-      }
-      console.log(msg.text);
-      client.replyMessage(req.body.events[0].replyToken,
-        { type: 'text', text: 'gak usah sok-sok ' + msg.text + ' ngentot!'});
+        console.log(err);
+      });
+      handleMsg(ei);
       return;
     }
   }
+  if(ei.type === 'join')
+  {
+    client.replyMessage(ei.replyToken, { type: 'text', text: 'Ketik !mulai untuk memulai permainan.'});
+    return;
+  }
 });
+
+function handleMsg(ei)
+{
+  const msg = ei.message;
+  if(msg === '!mulai')
+  {
+    if(getRoom(ei) == null) return;
+    if((getRoom(ei) != null) && ggames[getRoom(ei)] != null)
+    {
+      client.replyMessage(ei.replyToken, { type: 'text', text: 'Permainan sedang berjalan.'});
+      return;
+    } else
+    {
+      var g = new ggame(getRoom(ei));
+      g.addPlayer(ei.source.userId);
+      return;
+    }
+  }
+}
+
+function getRoom(ei)
+{
+  if(ei.source.type === 'room')
+  {
+    return ei.source.roomId;
+  }
+  if(ei.source.type === 'group')
+  {
+    return ei.source.groupId;
+  }
+  return;
+}
