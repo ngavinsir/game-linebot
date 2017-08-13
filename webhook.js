@@ -59,10 +59,11 @@ app.post('/', (req,res) => { //what to do in case a http post
   {
     if(ei.message.type === 'text')
     {
-      client.pushMessage(ei.source.userId + 'a', {type: 'text', text: 'test'})
+      client.pushMessage(ei.source.userId, {type: 'text', text: 'test'})
       .catch((err) =>
       {
         console.log(err);
+        return;
       });
       handleMsg(ei);
       return;
@@ -77,6 +78,7 @@ app.post('/', (req,res) => { //what to do in case a http post
 
 function handleMsg(ei)
 {
+  console.log('handling msg');
   const msg = ei.message;
   if(msg === '!mulai')
   {
