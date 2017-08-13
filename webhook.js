@@ -17,13 +17,18 @@ var ggame = function(id) //generate new game
   gindex++;
 };
 
-var ppl = function(uid)
+var ppl = function(ei, gabung)
 {
-  this.uid = uid;
-  client.getProfile(uid).then((profile) =>
+  this.uid = ei.source.userId;
+  client.getProfile(e.source.userId).then((profile) =>
   {
     this.name = profile.displayName;
-    console.log(this.name);
+    if(gabung)
+    {
+      reply(ei.replyToken, this.name
+        + ' telah bergabung dengan permainan\n\nKetik !gabung untuk ikut bermain\n' + getGame(ei).pcount
+        + ' pemain sudah bergabung');
+    }
   });
 }
 
@@ -33,10 +38,10 @@ ggame.prototype = //game functions
           {
               return this.rid;
           },
-  addPlayer : function(uid)
+  addPlayer : function(ei, gabung)
           {
-            this.players[this.pcount] = new ppl(uid);
-            this.players[uid] = this.players[this.pcount];
+            this.players[this.pcount] = new ppl(ei, true);
+            this.players[ei.source.userId] = this.players[this.pcount];
             console.log(this.players[this.pcount].uid);
             console.log(this.pcount);
             this.pcount++;
@@ -111,7 +116,7 @@ function handleMsg(ei)
         return;
       }
       var g = new ggame(getRoom(ei));
-      g.addPlayer(ei.source.userId);
+      g.addPlayer(ei, false);
       reply(ei.replyToken, '1 menit hingga permainan dimulai\n\nKetik !gabung untuk ikut bermain\n' + g.pcount
         + ' pemain sudah bergabung');
       return;
@@ -154,10 +159,7 @@ function handleMsg(ei)
         {
           return;
         }
-        getGame(ei).addPlayer(ei.source.userId);
-        reply(ei.replyToken, getPpl(ei).name
-          + ' telah bergabung dengan permainan\n\nKetik !gabung untuk ikut bermain\n' + getGame(ei).pcount
-          + ' pemain sudah bergabung');
+        getGame(ei).addPlayer(ei, true);
         return;
       }, 2000);
       client.pushMessage(ei.source.userId, {type: 'text', text: 'Anda bergabung dengan permainan.'})
