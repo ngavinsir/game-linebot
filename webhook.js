@@ -125,5 +125,8 @@ function getRoom(ei)
 
 function getP(ei)
 {
-  return client.getProfile(ei.source.userId).displayName;
+  return client.getProfile(ei.source.userId).catch((err) =>
+  {
+    console.log('fucked');
+  });
 }
