@@ -67,6 +67,7 @@ app.post('/', (req,res) => { //what to do in case a http post
         console.log(profile.statusMessage);
       })
       .catch((err) => {
+        console.log('cukime');
         console.log(err);
       });
       handleMsg(ei);
