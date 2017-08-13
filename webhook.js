@@ -134,7 +134,7 @@ function handleMsg(ei)
     {
       if(getGame(ei).players[ei.source.userId] != null)
       {
-        reply(ei.replyToken, getPpl(ei.source.userId).name
+        reply(ei.replyToken, getPpl(ei).name
           + " sudah bergabung dengan permainan! Tunggu hingga permainan dimulai");
         return;
       }
@@ -213,9 +213,9 @@ function getGame(ei)
   return ggames[getRoom(ei)];
 }
 
-function getPpl(ei)
+function getPpl(eii)
 {
-  return getGame(ei).players[ei.source.userId];
+  return getGame(eii).players[ei.source.userId];
 }
 
 function getRoom(ei)
