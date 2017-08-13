@@ -135,7 +135,7 @@ function handleMsg(ei)
       if(getGame(ei).players[ei.source.userId] != null)
       {
         reply(ei.replyToken, getPpl(ei).name
-          + " sudah bergabung dengan permainan! Tunggu hingga permainan dimulai");
+          + " sudah bergabung dengan permainan!\nTunggu hingga permainan dimulai");
         return;
       }
       var ff = setTimeout(function()
