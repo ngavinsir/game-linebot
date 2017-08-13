@@ -59,7 +59,7 @@ app.post('/', (req,res) => { //what to do in case a http post
   {
     if(ei.message.type === 'text')
     {
-      console.log(getProfile(ei).displayName + ' ' + getProfile(ei));
+      console.log(getP(ei));
       handleMsg(ei);
       return;
     }
@@ -123,7 +123,7 @@ function getRoom(ei)
   return;
 }
 
-function getProfile(ei)
+function getP(ei)
 {
-  return client.getProfile(ei.source.userId);
+  return client.getProfile(ei.source.userId).displayName;
 }
