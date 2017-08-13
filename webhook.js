@@ -20,7 +20,7 @@ var ggame = function(id) //generate new game
 var ppl = function(ei, gabung)
 {
   this.uid = ei.source.userId;
-  client.getProfile(e.source.userId).then((profile) =>
+  client.getProfile(ei.source.userId).then((profile) =>
   {
     this.name = profile.displayName;
     if(gabung)
