@@ -213,9 +213,9 @@ function getGame(ei)
   return ggames[getRoom(ei)];
 }
 
-function getPpl(eii)
+function getPpl(ei)
 {
-  return getGame(eii).players[ei.source.userId];
+  return getGame(ei).players[ei.source.userId];
 }
 
 function getRoom(ei)
