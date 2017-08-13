@@ -59,7 +59,16 @@ app.post('/', (req,res) => { //what to do in case a http post
   {
     if(ei.message.type === 'text')
     {
-      console.log(getP(ei));
+      client.getProfile(ei.source.userId)
+      .then((profile) => {
+        console.log(profile.displayName);
+        console.log(profile.userId);
+        console.log(profile.pictureUrl);
+        console.log(profile.statusMessage);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
       handleMsg(ei);
       return;
     }
