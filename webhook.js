@@ -210,11 +210,7 @@ function reply(token, msg)
 
 function getGame(ei)
 {
-  if(isGame(ei))
-  {
-    return ggames[getRoom(ei)];
-  }
-  return null;
+  return ggames[getRoom(ei)];
 }
 
 function getPpl(uid)
