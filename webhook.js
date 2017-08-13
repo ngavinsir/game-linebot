@@ -97,10 +97,13 @@ function handleMsg(ei)
         { type: 'text', text: getProfile(ei).displayName + ' belum menambahkan saya menjadi teman.'});
       return;
     });
-    var g = new ggame(getRoom(ei));
-    g.addPlayer(ei.source.userId);
-    client.replyMessage(ei.replyToken, {type: 'text', text: '1 menit hingga permainan dimulai.'})
-    return;
+    setTimeout(function()
+    {
+      var g = new ggame(getRoom(ei));
+      g.addPlayer(ei.source.userId);
+      client.replyMessage(ei.replyToken, {type: 'text', text: '1 menit hingga permainan dimulai.'})
+      return;
+    }, 1000);
   }
 }
 
