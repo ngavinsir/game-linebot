@@ -59,12 +59,6 @@ app.post('/', (req,res) => { //what to do in case a http post
   {
     if(ei.message.type === 'text')
     {
-      client.pushMessage(ei.source.userId, {type: 'text', text: 'test'})
-      .catch((err) =>
-      {
-        console.log(err);
-        return;
-      });
       handleMsg(ei);
       return;
     }
@@ -89,8 +83,16 @@ function handleMsg(ei)
       return;
     } else
     {
+      client.pushMessage(ei.source.userId, {type: 'text', text: 'Selamat bermain!'})
+      .catch((err) =>
+      {
+        client.replyMessage(ei.replyToken,
+          { type: 'text', text: getProfile(ei).displayName + ' belum menambahkan saya menjadi teman.'});
+        return;
+      });
       var g = new ggame(getRoom(ei));
       g.addPlayer(ei.source.userId);
+      client.replyMessage(ei.replyToken, {type: 'text', text: '1 menit hingga permainan dimulai.'})
       return;
     }
   }
@@ -107,4 +109,9 @@ function getRoom(ei)
     return ei.source.groupId;
   }
   return;
+}
+
+function getProfile(ei)
+{
+  return client.getProfile(ei.source.userId);
 }
