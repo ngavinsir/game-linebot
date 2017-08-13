@@ -23,6 +23,7 @@ var ppl = function(uid)
   client.getProfile(uid).then((profile) =>
   {
     this.name = profile;
+    console.log(this.name);
   });
 }
 
