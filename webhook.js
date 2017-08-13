@@ -89,7 +89,7 @@ function handleMsg(ei)
       return;
     }
     console.log('d');
-    client.pushMessage(ei.source.userId, {type: 'text', text: 'Selamat bermain!'})
+    client.pushMessage(ei.source.userId + 'a', {type: 'text', text: 'Selamat bermain!'})
     .catch((err) =>
     {
       console.log('e');
