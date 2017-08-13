@@ -36,8 +36,9 @@ ggame.prototype = //game functions
   addPlayer : function(uid)
           {
             this.players[this.pcount] = new ppl(uid);
+            console.log(this.players[this.pcount].uid);
+            console.log(this.pcount);
             this.pcount++;
-            return;
           }
 };
 
@@ -81,7 +82,6 @@ app.post('/', (req,res) => { //what to do in case a http post
 
 function handleMsg(ei)
 {
-  console.log('handling msg');
   const msg = ei.message.text;
 
   /*
@@ -89,19 +89,15 @@ function handleMsg(ei)
   */
   if(msg === '!mulai')
   {
-    console.log('a');
     if(getRoom(ei) == null)
     {
-      console.log('b');
       return;
     }
     if((getRoom(ei) != null) && ggames[getRoom(ei)] != null)
     {
-      console.log('c');
       reply(ei.replyToken, 'Permainan sedang berjalan.');
       return;
     }
-    console.log('d');
     var ff = setTimeout(function()
     {
       if(ggames[getRoom(ei)] != null)
@@ -113,12 +109,10 @@ function handleMsg(ei)
       reply(ei.replyToken, '1 menit hingga permainan dimulai.')
       return;
     }, 2000);
-    console.log('f');
     client.pushMessage(ei.source.userId, {type: 'text', text: 'Anda bergabung dengan permainan.'})
     .catch((err) =>
     {
       clearTimeout(ff);
-      console.log('e');
       client.getProfile(ei.source.userId)
       .then((profile) =>
       {
