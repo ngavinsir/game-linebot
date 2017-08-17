@@ -183,7 +183,12 @@ ggame.prototype = //game functions
             console.log(this.kepalas);
             this.kepala = this.kepalas[Math.floor(Math.random() * this.kepalas.length)];
             this.kepala.kepala = true;
-            push(this.rid, this.kepala.name + ' adalah KEPALA SUKU!');
+            push(this.rid, 'Suku kita tidak lagi aman. Kekuatan-kekuatan jahat telah merasuki bagian-bagian'
+              +  ' dari suku kita. Mereka tidak segan menyakiti isi hati kawan kita yang sedang jatuh '
+              + 'dan rapuh. Pengkhianatan jalan terbaik bagi mereka untuk melewati masa sulitnya. Para '
+              + 'pengkhianat ini berusaha merampas kekuatan kepala suku kita. Kita harus melindungi kepala'
+              + ' suku kita dan jangan sampai tertipu dengan siapapun. Hati-hati, siapapun bisa jadi'
+              + ' pengkhianat.\n\n\nKEPALA SUKU kita adalah ' + this.kepala.name);
           },
   addPlayer : function(ei, gabung)
           {
@@ -540,31 +545,6 @@ function sendEvents(uidd)
                     },
                 ]
               },
-              /*{
-                "thumbnailImageUrl": "https://www.mostluxuriouslist.com/wp-content/uploads/2016/02/The-Aztecs.jpg",
-                "title": "Upacara Korban",
-                "text": "Kekuatan sempurna memerlukan pengorbanan yang tidak hanya sekali.",
-                "actions": [
-                    {
-                        "type": "postback",
-                        "label": "Vote",
-                        "data": "v-korban"
-                    },
-                ]
-              }
-              {
-                //https://www.opednews.com/populum/uploaded/old-ones-ritual-02015_04_02_13_31_08-0.jpg
-                "thumbnailImageUrl": "https://www.indonesiakaya.com/uploads/_images_gallery/Bapak_Yali_melepaskan_anak_panah_kepada_musuh_.jpg",
-                "title": "Ritual Suku",
-                "text": "Langkah-langkah untuk mengembalikan kekuatan sang kepala suku.",
-                "actions": [
-                    {
-                        "type": "postback",
-                        "label": "Vote",
-                        "data": "v-ritual"
-                    },
-                ]
-              },*/
               {
                 "thumbnailImageUrl": "https://www.mostluxuriouslist.com/wp-content/uploads/2016/02/The-Aztecs.jpg",
                 "title": "Upacara Korban",
