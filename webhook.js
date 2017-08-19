@@ -44,6 +44,7 @@ var ggame = function(id) //generate new game
   this.gclock = waitTime;
   this.play = false;
   this.minp = 4;
+  this.reset = false;
   ggames[gindex] = this;
   ggames[this.rid] = this;
   gindex++;
