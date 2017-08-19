@@ -55,6 +55,11 @@ var runn = function(gg)
 {
   var r = setInterval(function()
   {
+    if(this.reset)
+    {
+      reset = false;
+      clearInterval(r);
+    }
     if(gg.pcount <= -1)
     {
       clearInterval(r);
@@ -102,7 +107,29 @@ ggame.prototype = //game functions
 {
   getId : function() //return the name of the game
           {
-              return this.rid;
+            return this.rid;
+          },
+  reset : function()
+          {
+            this.reset = true;
+            if(this.nid === gindex-1)
+            {
+              ggames[nid] = null;
+              gindex--;
+            } else
+            {
+              for(i = this.nid; i < gindex; i++)
+              {
+                if(i === gindex-1)
+                {
+                  ggames[i] = null;
+                  continue;
+                }
+                ggames[i] = ggames[i+1];
+                ggames[i].nid--;
+              }
+              gindex--;
+            }
           },
   startGame : function()
           {
@@ -280,6 +307,25 @@ app.post('/', (req,res) => { //what to do in case a http post
 function handleMsg(ei)
 {
   const msg = ei.message.text;
+
+  /*
+-------------------------------------------------------------------------------------------------------------
+  */
+
+  if(msg === '!reset')
+  {
+    client.getProfile(ei.source.userId).then((profile) =>
+    {
+      if(profile.displayName === 'Nathanael Gavin')
+      {
+        if((getRoom(ei) != null) && getGame(ei) != null)
+        {
+          getGame(ei).reset();
+          return;
+        }
+      }
+    });
+  }
 
   /*
 -------------------------------------------------------------------------------------------------------------
