@@ -55,9 +55,10 @@ var runn = function(gg)
 {
   var r = setInterval(function()
   {
-    if(this.reset)
+    if(gg.reset)
     {
       reset = false;
+      push(gg.rid, 'Permainan telah dihentikan');
       clearInterval(r);
     }
     if(gg.pcount <= -1)
@@ -114,7 +115,7 @@ ggame.prototype = //game functions
             this.reset = true;
             if(this.nid === gindex-1)
             {
-              ggames[nid] = null;
+              ggames[this.nid] = null;
               gindex--;
             } else
             {
