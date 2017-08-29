@@ -56,7 +56,7 @@ var runn = function(gg)
 {
   var r = setInterval(function()
   {
-    if(gg.reset)
+    if(gg.reset == true)
     {
       reset = false;
       push(gg.rid, 'Permainan telah dihentikan');
@@ -111,15 +111,17 @@ ggame.prototype = //game functions
           {
             return this.rid;
           },
-  reset : function()
+  resetG : function()
           {
             this.reset = true;
             if(this.nid === gindex-1)
             {
               ggames[this.nid] = null;
+              ggames[this.rid] = null;
               gindex--;
             } else
             {
+              ggames[this.rid] = null;
               for(i = this.nid; i < gindex; i++)
               {
                 if(i === gindex-1)
@@ -304,6 +306,10 @@ app.post('/', (req,res) => { //what to do in case a http post
     reply(ei.replyToken, 'Ketik !mulai untuk memulai permainan.');
     return;
   }
+  if(ei.type === 'postback')
+  {
+    
+  }
 });
 
 function handleMsg(ei)
@@ -322,7 +328,7 @@ function handleMsg(ei)
       {
         if((getRoom(ei) != null) && getGame(ei) != null)
         {
-          getGame(ei).reset();
+          getGame(ei).resetG();
           return;
         }
       }
